@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "WebService": {
+      "applicationId": "PkdnBQgRuPN4xbEJ8oRHuXgdzEZCFVkeCAmZWspl"
+    },
+    "_default": {
+      "link": "WebService"
+    }
+  }
+}
