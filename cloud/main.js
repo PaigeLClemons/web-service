@@ -1,6 +1,9 @@
-
 // Use Parse.Cloud.define to define as many cloud functions as you want.
-// For example:
-Parse.Cloud.define("hello", (request) => {
-	return "Hello world!";
+Parse.Cloud.define("authorize", async (request) => {
+	//TODO: check that "Token token="
+	const TOKEN = request.params.token;
+	if(("Token token=" + process.env.PLATFORM_KEY) == TOKEN){
+		return await true;
+	}
+	return await false;
 });
