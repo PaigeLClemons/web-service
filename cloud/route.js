@@ -1,6 +1,7 @@
 const res = require("express/lib/response");
 const db = require("./parse");
 const jwt = require('jsonwebtoken');
+import jwt_decode from "jwt-decode";
 
 // Index
 app.get('/', (req, res) => {
@@ -130,7 +131,7 @@ app.get('/loads', async (req, res) => {
   if(await Parse.Cloud.run('authorize', PARAM) == true){
     const Loads = Parse.Object.extend("loads");
     const query = new Parse.Query(Loads);
-    var results = await query.find();
+    let results = await query.find();
     
     results = JSON.stringify(results)
     results = JSON.parse(results);
@@ -174,20 +175,12 @@ app.get('/autenticate:token', async (req, res) => {
   console.log(userToken);
   const PARAM = {"token": userToken};
 
-  // if(await Parse.Cloud.run('authorize', PARAM) == true){
-  //   const Users = Parse.Object.extend("MobileUsers");
-  //   const query = new Parse.Query(Users);
-  //   var results = await query.find();
-    
-  //   results = JSON.stringify(results)
-  //   results = JSON.parse(results);
-  //   for(var i = 0; i < results.length; i++){
-  //     delete results[i].objectId;
-  //     delete results[i].updatedAt;
-  //     delete results[i].createdAt;
-  //     results[i].id = results[i].ID;
-  //     delete results[i].ID;
-  //   }
+  if(await Parse.Cloud.run('authorize', PARAM) == true){
+    let jwt = req.params.token;
+    var decode = jwt_decode(jwt);
+
+    res.send(decode);
+  }
 
   //   res.send(results);
 
