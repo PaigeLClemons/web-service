@@ -2,15 +2,7 @@ const res = require("express/lib/response");
 // const { decodeJwt } = require("jose");
 const db = require("./parse");
 
-// Index
-app.get('/', (req, res) => {
-  res.render('index');
-});
-
-app.get('/all_loads', async (req, res) => {
-  res.render("loads");
-});
-
+//Actual routes
 app.get('/loads', async (req, res) => {
   let userToken = "" + req.header("Authorization")
   console.log(userToken);
@@ -40,11 +32,6 @@ app.get('/loads', async (req, res) => {
 
 });
 
-app.get('/users', (req, res) => {
-  res.render("user");
-});
-
-
 app.get('/authenticate/:token', async (req, res) => {
   let userToken = "" + req.header("Authorization")
   console.log(userToken);
@@ -60,10 +47,6 @@ app.get('/authenticate/:token', async (req, res) => {
   }
 
 });
-
-app.get('/messages', (req, res) => {
-  res.render("messages");
-})
 
 app.put('/messages/:handle', async (req, res) => {
   let userToken = "" + req.header("Authorization")
@@ -82,4 +65,23 @@ app.put('/messages/:handle', async (req, res) => {
   else{
     res.send("You are not authorized to send a request. Please correct your token");
   }
+});
+
+
+//Anything below this comment is solely for rendering HTML
+app.get('/messages', (req, res) => {
+  res.render("messages");
+});
+
+app.get('/users', (req, res) => {
+  res.render("user");
+});
+
+// Index
+app.get('/', (req, res) => {
+  res.render('index');
+});
+
+app.get('/all_loads', async (req, res) => {
+  res.render("loads");
 });
