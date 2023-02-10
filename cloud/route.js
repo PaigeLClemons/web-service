@@ -1,7 +1,6 @@
 const res = require("express/lib/response");
+// const { decodeJwt } = require("jose");
 const db = require("./parse");
-const jwt = require('jsonwebtoken');
-import jwt_decode from "jwt-decode";
 
 // Index
 app.get('/', (req, res) => {
@@ -170,22 +169,41 @@ app.get('/users', (req, res) => {
 });
 
 
-app.get('/autenticate:token', async (req, res) => {
+app.get('/authenticate/:token', async (req, res) => {
   let userToken = "" + req.header("Authorization")
   console.log(userToken);
   const PARAM = {"token": userToken};
 
   if(await Parse.Cloud.run('authorize', PARAM) == true){
-    let jwt = req.params.token;
-    var decode = jwt_decode(jwt);
-
+    let token = req.params.token;
+    // let decode = decodeJwt(token);
     res.send(decode);
   }
+  else{
+    res.send("You are not authorized to send a request. Please correct your token");
+  }
 
-  //   res.send(results);
+});
 
-  // }
-  // else{
-  //   res.send("You are not authorized to send a request. Please correct your token");
-  // }
+app.get('/messages', (req, res) => {
+  res.render("messages");
+})
+
+app.put('/messages/:handle', async (req, res) => {
+  let userToken = "" + req.header("Authorization")
+  console.log(userToken);
+  const PARAM = {"token": userToken};
+
+  if(await Parse.Cloud.run('authorize', PARAM) == true){
+    const Messages = Parse.Object.extend("Messages");
+    const messages = new Messages();
+    messages.set("handle", req.params.handle);
+    messages.save(req.body);
+
+
+    res.send(req.params.handle).status(200);
+  }
+  else{
+    res.send("You are not authorized to send a request. Please correct your token");
+  }
 });
