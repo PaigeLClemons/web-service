@@ -1,5 +1,6 @@
 {
     "dependencies": {
-        "body-parser": "*"
+        "body-parser": "*",
+        "jose": "v4.11.4"
     }
 }

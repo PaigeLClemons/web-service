@@ -6,3 +6,7 @@ Parse.Cloud.define("authorize", async (request) => {
 	}
 	return await false;
 });
+
+Parse.Cloud.define("getPlatformKey", async (request) => {
+	return process.env.PLATFORM_KEY;
+});

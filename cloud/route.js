@@ -1,6 +1,6 @@
 const res = require("express/lib/response");
-// const { decodeJwt } = require("jose");
 const db = require("./parse");
+const JWT = require("jose");
 
 //Actual routes
 app.get('/loads', async (req, res) => {
@@ -34,13 +34,23 @@ app.get('/loads', async (req, res) => {
 
 app.get('/authenticate/:token', async (req, res) => {
   let userToken = "" + req.header("Authorization")
-  console.log(userToken);
   const PARAM = {"token": userToken};
 
   if(await Parse.Cloud.run('authorize', PARAM) == true){
-    let token = req.params.token;
-    // let decode = decodeJwt(token);
-    res.send(decode);
+    let decode = JWT.UnsecuredJWT.decode(req.params.token).payload;
+    const User = Parse.Object.extend("MobileUsers");
+    const query = new Parse.Query(User)
+    query.equalTo("username", decode.username);
+    let result = await query.find();
+
+    result = JSON.stringify(result[0]);
+    result = JSON.parse(result);
+
+    delete result.objectId;
+    delete result.updatedAt;
+    delete result.createdAt;
+
+    res.send(result);
   }
   else{
     res.send("You are not authorized to send a request. Please correct your token");
