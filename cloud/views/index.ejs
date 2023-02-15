@@ -2,13 +2,57 @@
 <html>
   <head>
     <title>Paige's Web Service</title>
-    <% include('head') %>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+    <!-- Bootstrap CSS--> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- jQuery--> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Bootstrap JS--> 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </head>
   <body>
     <h1>✨Paige's 🗑️ Web Service✨</h1>
     <iframe src="https://giphy.com/embed/rIFc8qJD19lPG" width="480" height="437" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/funny-cat-rIFc8qJD19lPG"></a></p>
-    <h2><a href="https://paigewebservice.b4a.app/users">Users</a></h2>
+    <!-- <h2><a href="https://paigewebservice.b4a.app/users">Users</a></h2>
     <h2><a href="https://paigewebservice.b4a.app/all_loads">Loads</a></h2>
-    <h2><a href="https://paigewebservice.b4a.app/messages">Messages</a></h2>
+    <h2><a href="https://paigewebservice.b4a.app/message">Messages</a></h2> -->
+    <h1>Endpoints</h1>
+    <br>
+
+    <h3><a href="https://dev.eleostech.com/platform/index.html#tag/Loads">GET https://paigewebservice.b4a.app/loads</a></h3>
+    <p>Returns all the loads in the loads table</p>
+    <br>
+
+    <h3><a href="https://dev.eleostech.com/platform/index.html#tag/User-Authentication">GET https://paigewebservice.b4a.app/authenticate/:token</a></h3>
+    <p>Returns the user based off the username found in the decoded unsigned JWT</p>
+    <br>
+
+    <h3><a href="https://dev.eleostech.com/platform/index.html#operation/upsertCustomerMessage">PUT https://paigewebservice.b4a.app/messages/:handle</a></h3>
+    <p>Saves the messages to the database with the given handle</p>
+    <br>
+
+    <h1>Extra Endpoints for ✨Fun✨</h1>
+    <br>
+
+    <h3>GET https://paigewebservice.b4a.app/loads/:id</h3>
+    <p>Returns the load based off the id</p>
+    <br>
+
+    <h3>PUT https://paigewebservice.b4a.app/loads</h3>
+    <p>Saves the load in the database that is defined in the JSON body of the request</p>
+    <br>
+
+    <h3>PUT https://paigewebservice.b4a.app/authenticate</h3>
+    <p>Saves the user in the database that is defined in the JSON body of the request</p>
+    <br>
+
+    <h3>GET https://paigewebservice.b4a.app/messages</h3>
+    <p>Returns all the messages in the messages table</p>
+    <br>
+
   </body>
 </html>
